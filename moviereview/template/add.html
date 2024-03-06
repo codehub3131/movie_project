@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<h1 id="heading" style="text-align: center;">Add Form</h1>
+<div class="container">
+<form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+		<div id="dis">
+             Enter the movie name : <div><input type="text" class="col" name="title" ></div><br>
+             Upload poster : <div><input type="file" class="col" name="poster" ></div><br>
+             Enter Description : <div><input type="text" class="col" name="desc" ></div><br>
+             Release date : <div><input type="date" class="col" name="release" ></div><br>
+             Actor : <div><input type="text" class="col" name="actors" ></div><br>
+             Actress : <div><input type="text" class="col" name="actress" ></div><br>
+             Category: <div><select name="categories">
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+            </select></div><br>
+             Trailer : <div><input type="url" class="col" name="trailer_link" ></div><br>
+             </div>
+             <div id="btn">
+             <input type="submit" class="button" value="submit"name="submit">
+             <input type="reset" class="button" value="Reset"><br>
+              </div>
+
+
+	</form>
+
+
+
+
+{% endblock %}
+
+
+

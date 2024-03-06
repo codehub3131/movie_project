@@ -1,0 +1,112 @@
+{% load static %}
+
+<html>
+<head></head>
+<body>
+	<style>
+		body{
+			 font-family: Calibri, Helvetica, sans-serif;
+            background-image: url('{% static "image/background1.jpg" %}');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+		}
+		.container {
+			  padding: 50px;
+			  background-color: #7cabc7;
+			  width: 429px;
+			  height: 685px;
+			  margin: 20 0 0 653px;
+			  margin-block-start: 0px;
+			  border-radius: 15px ;
+
+		}
+		h1{
+			text-align: center;
+			color: Black;
+			padding: 20px;
+			}
+
+		.col{
+			width: 420px;
+			height: 50px;
+			border: none;
+			border-radius: 17px;
+			padding-left: 8px;
+			margin-top: 20px;
+
+			}
+		#btn{
+			width: 330px;
+			height: 30px;
+			border: none;
+			border-radius: 17px;
+			padding-left: 116px;
+			color: blue;
+			margin-top: 20px;
+		}
+		#log{
+			margin-top: 20px;
+			margin-left: 135px;
+			}
+		#dis{
+			margin-right: 219px;
+
+		}
+		#email{
+			width: 420px;
+			height: 50px;
+			border: none;
+			border-radius: 17px;
+			padding-left: 8px;
+			margin-top: 20px;
+			}
+    .button{
+        width: 80px;
+        height: 30px;
+        border: none;
+        border-radius: 13px;
+        }
+    #heading{
+        font-size: 52px;
+        margin-right: 35px;
+        color: white;
+    }
+</style>
+<h1 id="heading">Registration Form</h1>
+<div class="container">
+<form action="" method="post">
+        {% csrf_token %}
+		<div id="dis">
+             Enter Your Username : <div><input type="text" class="col" name="username" ></div><br>
+             Enter First name : <div><input type="text" class="col" name="first_name" ></div><br>
+             Enter Last name : <div><input type="text" class="col" name="last_name" ></div><br>
+             Enter Email Id : <div><input type="email" class="col" name="email" ></div><br>
+             Password : <div><input type="password" class="col" name="password" ></div><br>
+             Re-enter Password : <div><input type="password" class="col" name="password1" ></div><br>
+             </div>
+             <div id="btn">
+             <input type="submit" class="button" value="submit"name="submit">
+             <input type="reset" class="button" value="Reset"><br>
+              </div>
+             <a href="{% url 'moviereviewapp:login' %}" id="log">Already registered?</a>
+
+	</form>
+ <script>
+        {% if messages %}
+            {% for message in messages %}
+                alert("{{ message }}");
+            {% endfor %}
+
+        {% endif %}
+   </script>
+</div>
+</body>
+</html>
+
+
+
+
+

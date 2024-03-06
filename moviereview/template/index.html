@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container">
+    <br>
+    <!-- Category Filter -->
+    <form action="{% url 'moviereviewapp:index' %}" method="get">
+        <select name="category">
+            <option value="">All Categories</option>
+            {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Filter</button>
+    </form>
+    <div class="card" id="backdrop">
+        <div class="card-body">
+            <div class="row">
+                {% for movie in page_obj %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img src="{{ movie.poster.url }}" alt="" class="img-fluid" width="75%">
+                                <h3 class="text-center">{{ movie.title }}</h3>
+                                <i class="text-center">{{ movie.release }}</i><br>
+                                <a href="{% url 'moviereviewapp:detail' movie.id %}">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-md-12">
+                    <p>No movies found.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pagination -->
+<div class="pagination justify-content-center mt-3">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+
+<!-- Display Movies -->
+<div class="container">
+    <div class="row">
+        {% for movie in page_obj %}
+        <div class="col-md-4">
+            <!-- Movie Card Display -->
+        </div>
+        {% empty %}
+        <p>No movies found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

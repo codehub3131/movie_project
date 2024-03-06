@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+          <img src="{{movie.poster.url}}" width="300" height="300">
+
+        </div>
+
+  <div class="col-md-6">
+      <h4>{{movie.title}}</h4><br>
+      <h6>{{movie.desc}}</h6><br>
+        <h6>{{movie.release}}</h6><br>
+        <h6>{{movie.actors}}</h6>
+        <h6>{{movie.actress}}</h6><br>
+        <h6>Category:</h6>
+            <ul>
+                {% for category in movie.categories.all %}
+                    <li>{{ category.name }}</li>
+                {% endfor %}
+            </ul><br>
+      <h6><a href="{{ movie.trailer_link }}">Trailer</a></h6><br>
+       {% if request.user == movie.user %}
+                <a class="btn btn-warning" href="{% url 'moviereviewapp:update' movie.id %}">update</a>
+                <a class="btn btn-danger" href="{% url 'moviereviewapp:delete' movie.id %}">delete</a>
+       {% endif %}
+
+
+  </div>
+
+        </div>
+</div>
+
+  <br>
+    <div class="card">
+        <div class="card-body">
+            <h3 class="text-center">Add Review</h3>
+            <form action="{% url 'moviereviewapp:add_review' movie.id %}" method="POST">
+                {% csrf_token %}
+                <label for="comment">Review</label>
+                <textarea name="comment" id="comment" cols="30" rows="5" class="form-control"></textarea>
+
+                <label>Rating</label>
+                <input type="range" id="rangeInput"
+                    name="rating" min="0" max="10" value="0" step="0.5"
+                    oninput="amount.value=rangeInput.value">
+
+         <output name="amount" id="amount" for="rangeInput">0</output>
+
+                <br>
+                <input type="submit" class="btn btn-danger" value="Add Review">
+            </form>
+        </div>
+    </div>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <h3 class="text-center">Reviews</h3>
+            {% for review in reviews %}
+                <div class="card" style="background-color: #f5eeee;">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5 class="text-left">{{ review.user.username }}</h5>
+                                <h5>{{ review.rating }}</h5>
+
+
+                            </div>
+                            <div class="col-md-9">
+                                <p>{{ review.comment }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

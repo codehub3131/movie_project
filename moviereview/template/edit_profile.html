@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div style="text-align: center; font-size: 20px;">
+          <h1>Edit Profile</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            <button type="submit">Save</button>
+            <a href="{% url 'moviereviewapp:index' %}">Exit</a>
+        </form>
+        {% endblock %}
+
+</div>
+
